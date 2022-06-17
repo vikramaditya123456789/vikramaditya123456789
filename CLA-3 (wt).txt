@@ -1,0 +1,90 @@
+<html>
+<body>
+<h1 id="name">  </h1>
+<script type="text/javascript">  
+function printvalue()
+{  
+var n=document.form1.name.value;
+for(var i=1;i<=n;i++)
+        {
+            var p=0;
+            for(var j=1;j<=i;j++)
+            {
+                if(i%j==0)
+                    p++;
+            }
+            if(p==2)
+                    document.write(" "+i);
+        } 
+}  
+</script>  
+<script>
+function fibanocci()
+{  
+var t=document.form1.name.value;
+var n1=0, n2=1;
+for (var i = 1; i <= t; i++) {
+    document.write(" "+n1);
+    nextTerm = n1 + n2;
+    n1 = n2;
+    n2 = nextTerm;
+}
+}  
+</script>
+<script>
+function factorial()
+{  
+var p = document.form1.name.value;
+if (p < 0) {
+    document.write('Error! Factorial for negative number does not exist.');
+}
+else if (p === 0) {
+    document.write(`The factorial of ${p} is 1.`);
+}
+else {
+    var fact = 1;
+    for (i = 1; i <= p; i++) {
+        fact *= i;
+    }
+    document.write(`The factorial of ${p} is ${fact}.`);
+}
+}  
+</script>
+<script>
+function palindrome()
+{  
+var  number =document.form1.name.value;
+var rem, temp, final = 0;
+temp = number;
+		while(number>0)
+		{
+			rem = number%10;
+			number = parseInt(number/10);
+			final = final*10+rem;
+		}
+		if(final==temp)
+		{
+			window.alert("The number is Palindrome");
+			document.write("The number is Palindrome");
+		}
+		else
+		{
+			window.alert("The number is not palindrome");
+			document.write("The number is  not Palindrome");
+		}
+
+}  
+</script>
+<form name="form1">  
+Enter Number:<input type="text" name="name"/>  <br><br><br>  
+<input type="button" onclick="printvalue()" value="print prime" style="color: red;"/> 
+<input type="button" onclick="factorial()" value="print factorial" style="color: blue;"/> 
+<input type="button" onclick="fibanocci()" value="print fibanocci" style="color: yellow" /> 
+<input type="button" onclick="palindrome()" value="palindrom or not" style="color: green;"/>
+</form> 
+</body>
+</html>
+
+
+
+
