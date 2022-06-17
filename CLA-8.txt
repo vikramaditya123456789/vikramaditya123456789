@@ -1,0 +1,157 @@
+#MY SQL DATABASE SETUP
+
+CREATE TABLE `login` (
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+# Create a JavaBean - LoginBean.java
+
+package net.javaguides.login.bean;
+
+import java.io.Serializable;
+
+public class LoginBean implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1 L;
+    private String username;
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+#Create a LoginDao.java
+
+package net.javaguides.login.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import net.javaguides.login.bean.LoginBean;
+
+public class LoginDao {
+
+    public boolean validate(LoginBean loginBean) throws ClassNotFoundException {
+        boolean status = false;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        try (Connection connection = DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/mysql_database?useSSL=false", "root", "root");
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection
+            .prepareStatement("select * from login where username = ? and password = ? ")) {
+            preparedStatement.setString(1, loginBean.getUsername());
+            preparedStatement.setString(2, loginBean.getPassword());
+
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            status = rs.next();
+
+        } catch (SQLException e) {
+            // process sql exception
+            printSQLException(e);
+        }
+        return status;
+    }
+
+    private void printSQLException(SQLException ex) {
+        for (Throwable e: ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
+        }
+    }
+}
+
+#Create a login.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Insert title here</title>
+    </head>
+
+    <body>
+        <h1>Employee Login Form</h1>
+        <form action="loginsuccess.jsp" method="post">
+            <table style="with: 100%">
+                <tr>
+                    <td>UserName</td>
+                    <td><input type="text" name="username" /></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password" /></td>
+                </tr>
+
+            </table>
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+
+    </html>
+
+
+#Create a loginsuccess.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+    <%@page import="net.javaguides.login.database.*"%>
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+            <meta charset="ISO-8859-1">
+            <title>Insert title here</title>
+        </head>
+
+        <body>
+
+            <jsp:useBean id="login" class="net.javaguides.login.bean.LoginBean" />
+
+            <jsp:setProperty property="*" name="login" />
+
+            <%
+  LoginDao loginDao = new LoginDao();
+   boolean status = loginDao.validate(login);
+   if (status) {
+           out.print("<h1>You have logined successfully</h1>");
+   }
+ %>
+        </body>
+
+        </html>
