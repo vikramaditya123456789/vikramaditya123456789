@@ -1,0 +1,76 @@
+#html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Changer</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div id="squareOne" class="listener"></div>
+    <div id="squareTwo" class="listener"></div>
+    <div id="squareThree" class="listener"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+#js
+
+document.getElementById('squareOne').onclick = changeColor;
+
+function changeColor() {
+    document.body.style.color = "red";
+    return false;
+}
+
+#css
+
+#squareOne {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-color: #ccc;
+}
+
+#squareTwo {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-color: #ccc;
+}
+
+#squareThree {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-color: #ccc;
+}
+
+document.getElementById('squareOne').addEventListener('click', changeColor);
+
+function changeColor() {
+    this.style.backgroundColor = "red";
+    return false;
+}
+
+#squareOne {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-color: #ccc;
+}
+
+#squareTwo {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-color: #ccc;
+}
+
+#squareThree {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-color: #ccc;
+}
