@@ -17,7 +17,7 @@
           <div id="paneer1">
             <div id="paneer2"><div id="paneern">Paneer</div></div>
             <div id="paneerdish">
-             My name is Vikramaditya kumar Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere
               porro doloribus, dolorem distinctio at quis nulla dignissimos
               vitae sequi impedit aliquam ullam veniam explicabo, voluptate,
               maiores recusandae dolore deleniti consequatur?
